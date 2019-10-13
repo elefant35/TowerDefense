@@ -20,9 +20,10 @@ public class PlayerController : MonoBehaviour
         
     }
 
-    void ChangeScore(int scoreChange) //adds to score (or subtracts with negative input)
+    public void ChangeScore(int scoreChange) //adds to score (or subtracts with negative input)
     {
         score += scoreChange;
         scoreText.text = score.ToString();
+        Debug.Log("Score was changed");
     }
 }

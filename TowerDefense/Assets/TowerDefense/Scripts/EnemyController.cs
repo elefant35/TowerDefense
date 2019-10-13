@@ -13,6 +13,7 @@ public class EnemyController : MonoBehaviour
     public ThirdPersonCharacter character;
     public GameObject Goal;
     public float health = 10f;
+    public int points = 20;
 
     // Start is called before the first frame update
     void Start()
@@ -72,5 +73,7 @@ public class EnemyController : MonoBehaviour
     {
         Debug.Log("enemy has died");
         Destroy(gameObject);
+        PlayerController playerController = GameObject.FindGameObjectWithTag("PlayerController").GetComponent<PlayerController>();
+        playerController.ChangeScore(points);
     }
 }
