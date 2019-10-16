@@ -44,7 +44,7 @@ public class Bullet : MonoBehaviour
     
     void HitTarget()
     {
-        Debug.Log("We Hit Something"); // Used to show that something was hit
+        //Debug.Log("We Hit Something"); // Used to show that something was hit
         Destroy(gameObject);
         EnemyController enemyController = target.GetComponent<EnemyController>();
         enemyController.DamageEnemy(damageAmount);

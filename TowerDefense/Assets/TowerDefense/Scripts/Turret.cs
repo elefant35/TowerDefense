@@ -15,7 +15,7 @@ public class Turret : MonoBehaviour
     [Header("Set up")]
     public Transform partToRotate;
     public string enemyTag = "Enemy";
-    public GameObject bullterPrefab;
+    public GameObject bulletPrefab;
     public Transform firePoint;
 
     //System managed functions -------------------------------------
@@ -40,13 +40,13 @@ public class Turret : MonoBehaviour
     // Custom Functions------------------------------------------------
     void Shoot()
     {
-        Debug.Log("shoot at : " + target.name); //Debug code to see what target the turret is aiming at
-        GameObject flyingBullet = (GameObject)Instantiate(bullterPrefab, firePoint.position, firePoint.rotation);
+        //Debug.Log("shoot at : " + target.name); //Debug code to see what target the turret is aiming at
+        GameObject flyingBullet = (GameObject)Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
         Bullet bullet = flyingBullet.GetComponent<Bullet>();
 
         if(bullet  != null)
         {
-            Debug.Log("bulletScript was called");
+            //Debug.Log("bulletScript was called");
             bullet.Seek(target);
         }
     }
