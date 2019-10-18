@@ -19,6 +19,7 @@ public class EnemyController : MonoBehaviour
     void Start()
     {
         agent.updateRotation = false;
+        Goal = GameObject.FindGameObjectWithTag("Goal");
     }
 
     // Update is called once per frame

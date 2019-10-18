@@ -7,6 +7,7 @@ TagManager:
   - Fire
   - Enemy
   - PlayerController
+  - Goal
   layers:
   - Default
   - TransparentFX
