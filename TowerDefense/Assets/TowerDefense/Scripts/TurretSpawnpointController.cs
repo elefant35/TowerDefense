@@ -83,7 +83,7 @@ public class TurretSpawnpointController : MonoBehaviour
     {
         return hasTurret;
     }
-    
+
     public bool ChangeTurret(int turretNumber) // adds a turret or changes it regardless of existing turret in spawnpoint
     {
         if (hasTurret)
@@ -91,9 +91,8 @@ public class TurretSpawnpointController : MonoBehaviour
             removeTurret(); // if there is a turret then remove it
         }
         currentTurret = spawnTurret(turretLibrary[turretNumber]); //spawn a turret
-        currentTurretNum = turretNumber;
-        return false;
+        currentTurretNum = turretNumber; //set currentTurret num to the library number of the turret that was spawned.
+        return true; //return true for error handling
     }
-
 
 }
