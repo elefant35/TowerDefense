@@ -8,12 +8,15 @@ public class TurretSpawnpointController : MonoBehaviour
     [SerializeField] private Transform spawnPoint; // The point where the turret will spawn
     [SerializeField] private GameObject[] turretLibrary; // using an array so I can add additional turrets in the future
     private GameObject currentTurret; // keeps track of current turret in case modifations to turret need to be made, eg. upgrades. 
+    private int currentTurretNum = -1;
     private bool hasTurret = false; //shows if this turret spawn point currently has a turret 
+
 
     // Start is called before the first frame update
     void Start()
     {
         ChangeTurret(0);// used for testing remove later
+        Debug.Log(returnCurrentTurretNum() + " is current turret num");
     }
 
     // Update is called once per frame
@@ -35,6 +38,30 @@ public class TurretSpawnpointController : MonoBehaviour
         return currentTurret;
     }
 
+    public int returnCurrentTurretNum() //used to return the number of the current turret
+    {
+        /*if (hasTurret)
+        {
+            for (int i = 0; i < turretLibrary.Length; i++)// iterates through turretLibrary
+            {
+
+                if (turretLibrary[i].name == currentTurret.name) // NEED TO CHANGE TO NOT USE NAMEiterates through each of the turrets in library and checks if the name is the same as currentTurret
+                {
+                    return i;//returns number of current turret in library
+                }
+            }
+            return -1;  //returns -1 for error handling (it should have returned before this)
+        }
+        else
+        {
+            return -1; //returns -1 for error handling
+        }*/
+        return currentTurretNum;
+            
+    
+    }
+
+
     public bool removeTurret()
     {
         if (hasTurret)
@@ -43,6 +70,7 @@ public class TurretSpawnpointController : MonoBehaviour
             hasTurret = false; //sets has turret to false to show no turret is in use
             Destroy(currentTurret); //destroys the turret gameobject
             currentTurret = null; //sets currentTurret to null to reperesent that no turret is in use
+            currentTurretNum = -1;
             return true; //returns true for error handling to show that the function was sucessful
         }
         else
@@ -63,6 +91,7 @@ public class TurretSpawnpointController : MonoBehaviour
             removeTurret(); // if there is a turret then remove it
         }
         currentTurret = spawnTurret(turretLibrary[turretNumber]); //spawn a turret
+        currentTurretNum = turretNumber;
         return false;
     }
 
