@@ -18,15 +18,20 @@ public class GnomeSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        timeSinceSpawn += Time.deltaTime;
-        if(timeSinceSpawn >= spawnRate)
+        RepeatSpawn(); //this function repeatidly spawns gnomes it must be run in Update()
+    }
+    private void SpawnEnemy(int enemyNum)
+    {
+        Instantiate(enemy[enemyNum], gameObject.transform.position, gameObject.transform.rotation); //spawns enemy (based on enemynum)
+        timeSinceSpawn = 0; //resets time since last spawn
+    }
+
+    private void RepeatSpawn()//this function repeatidly spawns gnomes it must be run in Update()
+    {
+        timeSinceSpawn += Time.deltaTime; // Updates the time since the last spawn
+        if (timeSinceSpawn >= spawnRate) // if enough time has passed since last spawn
         {
             SpawnEnemy(0);
         }
-    }
-    public void SpawnEnemy(int enemyNum)
-    {
-        Instantiate(enemy[enemyNum], gameObject.transform.position, gameObject.transform.rotation);
-        timeSinceSpawn = 0;
     }
 }

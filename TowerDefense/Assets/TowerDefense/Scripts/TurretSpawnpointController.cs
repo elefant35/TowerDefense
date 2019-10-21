@@ -16,7 +16,6 @@ public class TurretSpawnpointController : MonoBehaviour
     void Start()
     {
         ChangeTurret(0);// used for testing remove later
-        Debug.Log(returnCurrentTurretNum() + " is current turret num");
     }
 
     // Update is called once per frame
@@ -40,22 +39,6 @@ public class TurretSpawnpointController : MonoBehaviour
 
     public int returnCurrentTurretNum() //used to return the number of the current turret
     {
-        /*if (hasTurret)
-        {
-            for (int i = 0; i < turretLibrary.Length; i++)// iterates through turretLibrary
-            {
-
-                if (turretLibrary[i].name == currentTurret.name) // NEED TO CHANGE TO NOT USE NAMEiterates through each of the turrets in library and checks if the name is the same as currentTurret
-                {
-                    return i;//returns number of current turret in library
-                }
-            }
-            return -1;  //returns -1 for error handling (it should have returned before this)
-        }
-        else
-        {
-            return -1; //returns -1 for error handling
-        }*/
         return currentTurretNum;
             
     

@@ -6,8 +6,8 @@ using UnityEngine.UI;
 public class PlayerController : MonoBehaviour
 {
     //declare variables
-    public int score = 0;
-    public Text scoreText;
+    private int score = 0;
+    [SerializeField] private Text scoreText; //ui element for score
     // Start is called before the first frame update
     void Start()
     {
@@ -22,8 +22,13 @@ public class PlayerController : MonoBehaviour
 
     public void ChangeScore(int scoreChange) //adds to score (or subtracts with negative input)
     {
-        score += scoreChange;
-        scoreText.text = score.ToString();
-        Debug.Log("Score was changed");
+        score += scoreChange; // changes the score variable
+        scoreText.text = score.ToString(); // sets the score in the UI
+        //Debug.Log("Score changed to "  + score); // disabled but used for debugging to check score
+    }
+
+    public int returnScore() //retreives the score
+    {
+        return score;
     }
 }

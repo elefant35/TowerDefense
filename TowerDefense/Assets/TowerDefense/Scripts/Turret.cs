@@ -7,16 +7,16 @@ public class Turret : MonoBehaviour
     //declare variables-----------------------------------------
     private Transform target;
     [Header("Modifiable attributes")]
-    public float range = 15;
-    public float turnSpeed = 10f;
-    public float fireRate = 1f;
+    [SerializeField] private float range = 15;
+    [SerializeField] private float turnSpeed = 10f;
+    [SerializeField] private float fireRate = 1f; // number of times turret shoots in one second
     private float fireCountdown = 0f;
 
     [Header("Set up")]
-    public Transform partToRotate;
-    public string enemyTag = "Enemy";
-    public GameObject bulletPrefab;
-    public Transform firePoint;
+    [SerializeField] private Transform partToRotate; // pivot point for the turet (containing object for the turret)
+    [SerializeField] private string enemyTag = "Enemy"; // tag that turret will lock on to
+    [SerializeField] private GameObject bulletPrefab; // bullet that is fired
+    [SerializeField] private Transform firePoint; // point where the bullet is released
 
     //System managed functions -------------------------------------
     // Start is called before the first frame update
@@ -38,20 +38,20 @@ public class Turret : MonoBehaviour
 
 
     // Custom Functions------------------------------------------------
-    void Shoot()
+    private void Shoot()
     {
         //Debug.Log("shoot at : " + target.name); //Debug code to see what target the turret is aiming at
-        GameObject flyingBullet = (GameObject)Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
-        Bullet bullet = flyingBullet.GetComponent<Bullet>();
+        GameObject flyingBullet = (GameObject)Instantiate(bulletPrefab, firePoint.position, firePoint.rotation); //generates teh bullet at the firepoint
+        Bullet bullet = flyingBullet.GetComponent<Bullet>(); //gets the script for the bullet object
 
         if(bullet  != null)
         {
             //Debug.Log("bulletScript was called");
-            bullet.Seek(target);
+            bullet.Seek(target); //sets the target for the bullet
         }
     }
 
-    void rotateAndFire()
+    private void rotateAndFire()
     {
         if (target == null)
         {
@@ -66,14 +66,14 @@ public class Turret : MonoBehaviour
 
 
         //shooting
-        if (fireCountdown <= 0)
+        if (fireCountdown <= 0) 
         {
             Shoot();
             fireCountdown = 1f / fireRate; //fire rate is number of times turret shoots in one second
         }
         fireCountdown -= Time.deltaTime; //counts down till next shot
     }
-    void UpdateTarget()
+    private void UpdateTarget()
     {
         // This function updates less frequently than update to save resources. 
 
