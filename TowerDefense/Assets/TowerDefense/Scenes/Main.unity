@@ -3387,7 +3387,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acbd4db28dba57940a2d5557337130a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  score: 0
   scoreText: {fileID: 1344114037}
 --- !u!1 &1850540647
 GameObject:
@@ -4889,6 +4888,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: DandelionTurret
       objectReference: {fileID: 0}
+    - target: {fileID: 4276726148752285251, guid: 2275baa4530f4474eab7d59b7a6b6f42,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4276726148752285248, guid: 2275baa4530f4474eab7d59b7a6b6f42,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5262,6 +5266,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8775401971777795769}
   - component: {fileID: 5733966614421111979}
+  - component: {fileID: 5733966614421111980}
   m_Layer: 0
   m_Name: POT
   m_TagString: Untagged
@@ -5282,9 +5287,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPoint: {fileID: 641264913}
-  turret: {fileID: 0}
-  turretToSpawn: {fileID: 4276726148752285251, guid: 2275baa4530f4474eab7d59b7a6b6f42,
-    type: 3}
+  turretLibrary:
+  - {fileID: 4276726148752285251, guid: 2275baa4530f4474eab7d59b7a6b6f42, type: 3}
+  - {fileID: 2849586273855277256, guid: fc5f007dad2ba6e4bb2907537ea18697, type: 3}
+  cam: {fileID: 724761210}
+--- !u!65 &5733966614421111980
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5733966614421111978}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.0623102, y: 2.8325949, z: 1.5507436}
+  m_Center: {x: -0.019124508, y: 0.91629744, z: -0.054766417}
 --- !u!1 &5805460286760151470
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,18 +10,19 @@ public class TurretSpawnpointController : MonoBehaviour
     private GameObject currentTurret; // keeps track of current turret in case modifations to turret need to be made, eg. upgrades. 
     private int currentTurretNum = -1;
     private bool hasTurret = false; //shows if this turret spawn point currently has a turret 
+    public Camera cam;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        ChangeTurret(0);// used for testing remove later
+        //ChangeTurret(0);// used for testing remove later
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        clickController();   
     }
 
     private GameObject spawnTurret( GameObject turretToSpawn)
@@ -76,6 +77,25 @@ public class TurretSpawnpointController : MonoBehaviour
         currentTurret = spawnTurret(turretLibrary[turretNumber]); //spawn a turret
         currentTurretNum = turretNumber; //set currentTurret num to the library number of the turret that was spawned.
         return true; //return true for error handling
+    }
+
+    private void clickController() { // used to track if the game object is cliecked, must be run in update()
+        if (Input.GetMouseButtonDown(0)) //if mouse is clicked
+        {
+            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit))
+            {
+                //Debug.Log("hit: " + hit.transform.gameObject.name);
+                if(hit.transform.gameObject == gameObject)
+                {
+                    Debug.Log("The Turret Spawn Point Was clicked");
+                    ChangeTurret(0);
+                }
+            }
+        }
+
     }
 
 }
