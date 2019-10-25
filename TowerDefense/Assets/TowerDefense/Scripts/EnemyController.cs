@@ -56,7 +56,6 @@ public class EnemyController : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit))
             {
-                agent.SetDestination(hit.point);
             }
         }
     }
@@ -75,6 +74,6 @@ public class EnemyController : MonoBehaviour
         Debug.Log("enemy has died");
         Destroy(gameObject);
         PlayerController playerController = GameObject.FindGameObjectWithTag("PlayerController").GetComponent<PlayerController>();
-        playerController.ChangeScore(points);
+        playerController.addScore(points);
     }
 }

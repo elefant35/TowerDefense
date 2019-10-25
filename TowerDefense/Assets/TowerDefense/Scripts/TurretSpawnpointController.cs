@@ -7,6 +7,8 @@ public class TurretSpawnpointController : MonoBehaviour
     //declare variables
     [SerializeField] private Transform spawnPoint; // The point where the turret will spawn
     [SerializeField] private GameObject[] turretLibrary; // using an array so I can add additional turrets in the future
+    [SerializeField] private int[] turretPrices;
+    
     private GameObject currentTurret; // keeps track of current turret in case modifations to turret need to be made, eg. upgrades. 
     private int currentTurretNum = -1;
     private bool hasTurret = false; //shows if this turret spawn point currently has a turret 
@@ -17,6 +19,7 @@ public class TurretSpawnpointController : MonoBehaviour
     void Start()
     {
         //ChangeTurret(0);// used for testing remove later
+        
     }
 
     // Update is called once per frame
@@ -70,13 +73,18 @@ public class TurretSpawnpointController : MonoBehaviour
 
     public bool ChangeTurret(int turretNumber) // adds a turret or changes it regardless of existing turret in spawnpoint
     {
-        if (hasTurret)
-        {
-            removeTurret(); // if there is a turret then remove it
+        PlayerController playerController = GameObject.FindGameObjectWithTag("PlayerController").GetComponent<PlayerController>();
+        if (playerController.subtractScore(turretPrices[turretNumber])){
+            if (hasTurret)
+            {
+                removeTurret(); // if there is a turret then remove it
+            }
+            currentTurret = spawnTurret(turretLibrary[turretNumber]); //spawn a turret
+            currentTurretNum = turretNumber; //set currentTurret num to the library number of the turret that was spawned.
+            return true; //return true for error handling
         }
-        currentTurret = spawnTurret(turretLibrary[turretNumber]); //spawn a turret
-        currentTurretNum = turretNumber; //set currentTurret num to the library number of the turret that was spawned.
-        return true; //return true for error handling
+        return false;
+        
     }
 
     private void clickController() { // used to track if the game object is cliecked, must be run in update()
