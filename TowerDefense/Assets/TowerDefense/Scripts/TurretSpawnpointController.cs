@@ -8,32 +8,35 @@ public class TurretSpawnpointController : MonoBehaviour
     [SerializeField] private Transform spawnPoint; // The point where the turret will spawn
     [SerializeField] private GameObject[] turretLibrary; // using an array so I can add additional turrets in the future
     [SerializeField] private int[] turretPrices;
-    
+
     private GameObject currentTurret; // keeps track of current turret in case modifations to turret need to be made, eg. upgrades. 
     private int currentTurretNum = -1;
     private bool hasTurret = false; //shows if this turret spawn point currently has a turret 
     public Camera cam;
-
-
+    [SerializeField] private Canvas rightClickMenu;
+    private float disableButtonTimer = 0;
+    [SerializeField] public float menuDelay = 0.05f;
+    private bool disableButton = false;
     // Start is called before the first frame update
     void Start()
     {
         //ChangeTurret(0);// used for testing remove later
-        
+        rightClickMenu.enabled = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        clickController();   
+        clickController();
+        delayDisableButton();
     }
 
-    private GameObject spawnTurret( GameObject turretToSpawn)
+    private GameObject spawnTurret(GameObject turretToSpawn)
     {
         Debug.Log(turretToSpawn.name + "was spawned"); //logs what turret was spawned
         hasTurret = true; //sets hasTurret to true to show that the spawnpoint has a turret
         return (GameObject)Instantiate(turretToSpawn, spawnPoint.position, spawnPoint.rotation); //spawns turret and 
-        
+
     }
 
     public GameObject returnCurrentTurret() // used to return the current turret so outside scripts can  see what turret is being used without modifying it
@@ -44,8 +47,8 @@ public class TurretSpawnpointController : MonoBehaviour
     public int returnCurrentTurretNum() //used to return the number of the current turret
     {
         return currentTurretNum;
-            
-    
+
+
     }
 
 
@@ -74,7 +77,7 @@ public class TurretSpawnpointController : MonoBehaviour
     public bool ChangeTurret(int turretNumber) // adds a turret or changes it regardless of existing turret in spawnpoint
     {
         PlayerController playerController = GameObject.FindGameObjectWithTag("PlayerController").GetComponent<PlayerController>();
-        if (playerController.subtractScore(turretPrices[turretNumber])){
+        if (playerController.subtractScore(turretPrices[turretNumber])) {
             if (hasTurret)
             {
                 removeTurret(); // if there is a turret then remove it
@@ -84,7 +87,7 @@ public class TurretSpawnpointController : MonoBehaviour
             return true; //return true for error handling
         }
         return false;
-        
+
     }
 
     private void clickController() { // used to track if the game object is cliecked, must be run in update()
@@ -96,14 +99,56 @@ public class TurretSpawnpointController : MonoBehaviour
             if (Physics.Raycast(ray, out hit))
             {
                 //Debug.Log("hit: " + hit.transform.gameObject.name);
-                if(hit.transform.gameObject == gameObject)
+                if (hit.transform.gameObject == gameObject)
+                {
+                    //Debug.Log("The Turret Spawn Point Was clicked");
+                    //ChangeTurret(0);
+                    rightClickMenu.enabled = true;
+                }
+                else
+                {
+                    disableButton = true; // this is closing the menu too fast when a button is pressed. 
+                    disableButtonTimer = menuDelay;
+                }
+            }
+        }
+        if (Input.GetMouseButtonDown(1)) //if mouse is clicked
+        {
+            /*Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit))
+            {
+                //Debug.Log("hit: " + hit.transform.gameObject.name);
+                if (hit.transform.gameObject == gameObject)
                 {
                     Debug.Log("The Turret Spawn Point Was clicked");
                     ChangeTurret(0);
                 }
-            }
+            }*/
+            var mousepos = Input.mousePosition;
+
+            GUI.Button(new Rect(mousepos.x, mousepos.y, 50, 30), "Click");
         }
 
     }
 
+    public void createTurretViaButton(int turretNum)
+    {
+        ChangeTurret(turretNum);
+    }
+
+    private void delayDisableButton()
+    {
+        if(disableButtonTimer > 0 && disableButton)
+        {
+            disableButtonTimer = disableButtonTimer - Time.deltaTime;
+        }
+        if(disableButtonTimer <= 0 && disableButton)
+        {
+            disableButton = false;
+            rightClickMenu.enabled = false;
+        }
+
+    }
 }
